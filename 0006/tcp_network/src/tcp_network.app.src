@@ -1,0 +1,11 @@
+{application, tcp_network,
+ [
+  {description, "tcp network app"},
+  {vsn, "1"},
+  {modules, []},
+  {registered, [tcp_network]},
+  {applications, [ kernel, stdlib ]},
+  {mod, {tcp_network, []}},
+  {start_phases, []},
+  {env, []}
+ ]}.

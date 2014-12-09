@@ -1,4 +1,5 @@
 %% 格式化record的输出,从lager拆出来的
+%% http://erlang.org/doc/apps/erts/absform.html
 %% 在需要的erl文件加上 -compile([{parse_transform, parse_transform_record}]).
 %% 或者rebar.config配置erl_opt加上{parse_transform, parse_transform_record}
 
