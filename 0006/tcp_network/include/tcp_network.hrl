@@ -6,6 +6,8 @@
     [binary,
     {active, false},   % 流量控制用once | N, 这个在client中重设为N,并用计时器去release passive mode
     {reuseaddr, true},
+    {packet, 2},
+    {packet_size, 65535},
     {delay_send, true}, % erlang自己的queue up
     {nodelay, true},    % send immediately
     %{backlog, 1024},   % socket缓存队列长度

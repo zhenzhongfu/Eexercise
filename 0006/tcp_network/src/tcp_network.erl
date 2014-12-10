@@ -32,4 +32,4 @@ listen(Reader, Port, AcceptorCount, _SockOpts) ->
     tcp_sup:start_supervisor_child(
         ?GET_LISTENER_NAME(Port),                       % child id
         tcp_listener_sup,                               % mod
-        [Reader, Port, AcceptorCount, ?TCP_OPTS]).
+        [Reader, Port, AcceptorCount, _SockOpts ++ ?TCP_OPTS]).

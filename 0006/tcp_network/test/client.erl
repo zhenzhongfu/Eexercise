@@ -102,6 +102,13 @@ handle_info({tcp, Sock, Bin}, State) ->
 handle_info({tcp_closed, _Sock}, State) ->
     io:format("recv tcp_closed. sock[~p]~n", [_Sock]),
     {stop, normal, State};
+handle_info({tcp_error, _Sock, emsgsize}, State) ->
+    % 超过定义的包长
+    io:format("error: ~p emsgsize ~n", [_Sock]),
+    {stop, normal, State};
+handle_info({tcp_error, _Sock, _Reason}, State) ->
+    io:format("error: ~p ~n", [_Reason]),
+    {stop, normal, State};
 handle_info(_Info, State) ->
     {noreply, State}.
 
@@ -111,7 +118,7 @@ handle_info(_Info, State) ->
 % Returns: any (ignored by gen_server)
 % --------------------------------------------------------------------
 terminate(_Reason, State) ->
-    io:format("terminate reason:~p~n", [_Reason]),
+    io:format(user, "terminate reason:~p~n", [_Reason]),
     (catch gen_tcp:close(State#cli_state.sock)),
     ok.
 

@@ -79,6 +79,7 @@ handle_client(Reader, Sock) ->
     % Reader是向role_sup添加child,这里只需要将返回的pid和sock绑定下
     case catch Reader:start_reader(Sock) of                             
         {ok, Pid} ->                                                    
+            % TODO 注意pid的异步行为
             case gen_tcp:controlling_process(Sock, Pid) of              
                 ok ->                                                   
                     ok;                                                 

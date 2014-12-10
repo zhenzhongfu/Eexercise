@@ -22,7 +22,7 @@ tcp_test_() ->
     }.
 
 tcp_case(Port) ->
-    {ok, Sock} = gen_tcp:connect("127.0.0.1", Port, [binary, {active, false}], 5000),
+    {ok, Sock} = gen_tcp:connect("127.0.0.1", Port, [binary, {active, false}, {packet, 2}], 5000),
     Msg = <<"hello world!">>,
     gen_tcp:send(Sock, Msg),
     ?assertEqual({ok, Msg}, gen_tcp:recv(Sock, 0, 5000)),
