@@ -1,0 +1,14 @@
+//{package, pb2, 2}.
+package pb2;                                                           
+
+message Nima {                                                        
+    optional string name = 1;                                           
+}                                                                       
+
+//{message, c2s_nimei, 1}.
+message c2s_nimei {       
+}                               
+//{message, s2c_nimei, 2}.
+message s2c_nimei {       
+    optional Nima nima = 1; 
+}                               

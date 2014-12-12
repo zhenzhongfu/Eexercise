@@ -1,0 +1,8 @@
+pb1=1
+pb1.s2c_addressbook=258
+pb1.c2s_addressbook=257
+
+pb2=2
+pb2.s2c_nimei=514
+pb2.c2s_nimei=513
+
