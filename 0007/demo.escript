@@ -56,7 +56,6 @@ parse_proto(TxtFd, ErlFd, ProtoFile) ->
             Term = expr_to_term(Str),
             [Term | Acc]
         end, [], Desc),
-    io:format("******** :~p~n", [L]),
 
     % TODO
     % 1. 按tuple读package和message，生成k=v这样的写入txt文件.这里还要校验下package的编号与其他文件的编号是否有冲突
@@ -73,8 +72,10 @@ parse_proto(TxtFd, ErlFd, ProtoFile) ->
 
             ErlContext = ErlContext1 ++ ErlContext2,
             file:write(ErlFd, ErlContext),
+            io:format("\n\033\[1;42mSUCCESS\033[0m: file:~p gen mf_id  success\n", [ProtoFile]),
             ok;
         false ->
+            io:format("\n\033\[1;42mSUCCESS\033[0m: file:~p gen mf_id success\n", [ProtoFile]),
             error
     end,
     ok.
@@ -95,7 +96,6 @@ get_desc(Fd, Acc) ->
             Acc2 = 
             case Head =:= "{package" orelse Head =:= "{message" of
                 true ->
-                    io:format("true Head:~p~nLine:~p~n", [Head, Line]),
                     Line2 = string:sub_string(Line, 3),
                     Line3 = string:strip(Line2, right, $\n),
                     [Line3 | Acc];
@@ -113,8 +113,8 @@ gen_package_prop(L) when is_list(L) ->
             {package, PropName, PropId} = Tuple,
             TxtNewLine = convert_txt_newline(PropName, PropId),
             ErlNewLine = convert_erl_newline(PropName, PropId),
-            io:format("******** TxtLine:~p ErlNewLine:~p Rest:~p~n", 
-                [TxtNewLine, ErlNewLine, Rest]),
+            %io:format("******** TxtLine:~p ErlNewLine:~p Rest:~p~n", 
+            %    [TxtNewLine, ErlNewLine, Rest]),
             {{TxtNewLine, ErlNewLine}, PropName, PropId, Rest};
         _Other ->
             false
@@ -174,6 +174,6 @@ expr_to_term(String) ->
     Term.
 
 %% term转字符表达式
-term_to_expr(Term) ->
-    lists:flatten(io_lib:write(Term)).
+%term_to_expr(Term) ->
+%    lists:flatten(io_lib:write(Term)).
 
